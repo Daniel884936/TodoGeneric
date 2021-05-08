@@ -24,11 +24,6 @@ namespace TodoGeneric.Infrastructure.Data
 
         public virtual DbSet<Todo> Todo { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Todo>(entity =>
