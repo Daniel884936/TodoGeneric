@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TodoGeneric.Core.Interfaces
 {
-    public interface IBaseService<TEntity, TReository> where TEntity : BaseEntity
+    public interface IBaseService<TEntity> where TEntity : BaseEntity
     {
         Result<TEntity> GetById(int id);
         Result<IEnumerable<TEntity>> GetAll();

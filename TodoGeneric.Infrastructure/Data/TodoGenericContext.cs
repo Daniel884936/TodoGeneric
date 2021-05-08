@@ -28,6 +28,11 @@ namespace TodoGeneric.Infrastructure.Data
         {
             modelBuilder.Entity<Todo>(entity =>
             {
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Id)
+                .HasColumnName("TodoId");
+
                 entity.Property(e => e.DateCreated)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");

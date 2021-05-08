@@ -8,7 +8,7 @@ using TodoGeneric.Infrastructure.Data;
 
 namespace TodoGeneric.Infrastructure.Repositories
 {
-    public abstract class BaseRepository<T>: IBaseRepository<T> where T : BaseEntity 
+    public  class BaseRepository<T>: IBaseRepository<T> where T : BaseEntity 
     {
         private readonly DbSet<T> _entities;
         private readonly TodoGenericContext _context;

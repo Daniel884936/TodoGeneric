@@ -13,6 +13,5 @@ namespace TodoGeneric.Core.Interfaces
         void Delete(T entity);
         Task CommitChangesAsync();
         void CommitChanges();
-
     }
 }

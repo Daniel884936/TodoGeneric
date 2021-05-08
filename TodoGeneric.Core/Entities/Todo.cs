@@ -10,7 +10,6 @@ namespace TodoGeneric.Entities.Todo
 {
     public partial class Todo: BaseEntity 
     {
-        public int TodoId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
     }

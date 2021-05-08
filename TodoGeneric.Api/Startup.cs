@@ -11,7 +11,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TodoGeneric.Core.Interfaces;
+using TodoGeneric.Core.Services;
 using TodoGeneric.Infrastructure.Data;
+using TodoGeneric.Infrastructure.Repositories;
 
 namespace TodoGeneric.Api
 {
@@ -31,6 +34,12 @@ namespace TodoGeneric.Api
             services.AddDbContext<TodoGenericContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("TodoGenericDb"));
             });
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddTransient(typeof(IBaseService<>), typeof(BaseService<>));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

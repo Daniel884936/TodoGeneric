@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TodoGeneric.Core.Services
 {
-    public abstract class BaseService<TEntity, TReository> : IBaseService<TEntity, TReository> where TEntity : BaseEntity where TReository : IBaseRepository<TEntity>
+    public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : BaseEntity 
     {
         private readonly IBaseRepository<TEntity> _repository;
         public BaseService(IBaseRepository<TEntity> repository) => _repository = repository;
@@ -58,6 +58,10 @@ namespace TodoGeneric.Core.Services
             try
             {
                 entities = _repository.GetAll();
+
+                if (entities == null)
+                    entities = Array.Empty<TEntity>();
+
                 result = Result<IEnumerable<TEntity>>.Success(entities);
             }
             catch (Exception ex)
