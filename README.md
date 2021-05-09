@@ -1,4 +1,6 @@
-Simple example to implement generic service, controller and repository in ASP.NET CORE 3.1
+# TodoGeneric
+
+A simple example to implement generic service, controller and repository in ASP.NET CORE 3.1
 
 ## How to run it?
 1 -  Yo have to spicify your server in `./script/db_Script` 
@@ -11,7 +13,7 @@ Simple example to implement generic service, controller and repository in ASP.NE
 
 </br>
 
-## No importante
+## Not important
 
 ### - Architecture used?
 #### A simple clean architecture (Onion)
