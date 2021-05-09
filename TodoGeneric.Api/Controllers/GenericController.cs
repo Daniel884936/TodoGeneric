@@ -1,10 +1,10 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using Ardalis.Result;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net;
+using TodoGeneric.Api.Responses;
 using TodoGeneric.Core.Entities;
 using TodoGeneric.Core.Interfaces;
 
@@ -31,17 +31,49 @@ namespace TodoGeneric.Api.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var entities = _service.GetAll();
-            var entitiesReadDto = _mapper.Map<IEnumerable<TReadDto>>(entities);
-            return Ok(entitiesReadDto);
+            ApiResponse<IEnumerable<TReadDto>> response;
+            var result = _service.GetAll();
+            if (result.Status == ResultStatus.Error)
+            {
+                var emptyResult = Array.Empty<TReadDto>();
+                response = new ApiResponse<IEnumerable<TReadDto>>(emptyResult, HttpStatusCode.InternalServerError)
+                {
+                    Message = "Somthing is wrong",
+                    Errors = result.Errors,
+                    Title = nameof(HttpStatusCode.InternalServerError)
+                };
+                return StatusCode((int)HttpStatusCode.InternalServerError, response);
+            }
+            var entitiesReadDto = _mapper.Map<IEnumerable<TReadDto>>(result.Value);
+            response = new ApiResponse<IEnumerable<TReadDto>>(entitiesReadDto, HttpStatusCode.OK)
+            {
+                Title = nameof(HttpStatusCode.OK)
+            };
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var entity = _service.GetById(id);
-            var entityReadDto = _mapper.Map<TReadDto>(entity);
-            return Ok(entityReadDto);
+            ApiResponse<TReadDto> response;
+            var result = _service.GetById(id);
+            if(result.Status == ResultStatus.Error)
+            {
+                response = new ApiResponse<TReadDto>(null, HttpStatusCode.InternalServerError)
+                {
+                    Message = "Somthing is wrong",
+                    Errors = result.Errors,
+                    Title = nameof(HttpStatusCode.InternalServerError)
+                };
+                return StatusCode((int)HttpStatusCode.InternalServerError, response);
+            }
+
+            var entityReadDto = _mapper.Map<TReadDto>(result.Value);
+            response = new ApiResponse<TReadDto>(entityReadDto, HttpStatusCode.OK)
+            {
+                Title = nameof(HttpStatusCode.OK)
+            };
+            return Ok(response);
         }
 
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TodoGeneric.Core.DTOs.TodoDtos
+﻿namespace TodoGeneric.Core.DTOs.TodoDtos
 {
     public class TodoDto
     {
